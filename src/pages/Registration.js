@@ -8,10 +8,25 @@ import Pbutton from "../components/Pbutton";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import AuthenticationLink from "../components/AuthenticationLink";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Rings } from "react-loader-spinner";
+import { useSelector } from "react-redux";
+
 
 //button Css start
 const CommonButton = styled(Button)({
@@ -30,48 +45,155 @@ const CommonButton = styled(Button)({
 const Registration = () => {
   // *******Firebase Start**************************
   const auth = getAuth();
+  let navigate = useNavigate();
+  let reduxReturnData = useSelector((state) => state);
   //  *******Firebase End**************************
+  useEffect(() => {
+    if (Boolean(reduxReturnData.userStoreData.userInfo)===true) {
+      console.log("should stay in Home Page ");
 
-  // Onchange Function Start**************************
+      navigate("/home");
+    }
+  },[]);
+
+  // Onchange Function Start*********getInput value *****************
   let [formData, setFormData] = useState({
     email: "",
     fullName: "",
     password: "",
   });
-
-  let handleForm = (e) => {
-    let { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    setError({ ...errorShow, [name]: "" });
-    console.log(formData);
-  };
-
-  // Onchange Function end *****************************
-
-  // ********Error Function start *****************************
-
   let [errorShow, setError] = useState({
     email: "",
     fullName: "",
-    password: "",
   });
+  //***************************************************************ProgressBar*****start*** */
+  let [progresShow, setProgres] = useState(0);
+  const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+    [`& .${linearProgressClasses.bar}`]: {
+      height: 40,
+      backgroundColor:
+        progresShow < 49.8 ? "yellow" : progresShow <= 83 ? "orange" : "green",
+    },
+  }));
+  //***************************************************************ProgressBar*****end*** */
+  let handleForm = (e) => {
+    let { name, value } = e.target;
+
+    //**************Password Varification******Start*************************************/
+
+    // if (name === "password") {
+    //   let cap = /(?=.*?[A-Z])/;
+    //   let lower = /(?=.*?[a-z])/;
+    //   let digit = /(?=.*?[0-9])/;
+    //   let spchar = /(?=.*?[#?!@$%^&*-])/;
+    //   let minlen = /.{6,}/;
+    //   let progresUnit=100/6
+    //   console.log(progresUnit)
+    //   //*********************ProgressBar***********Start****** */
+
+    //   if (value.length == 0) {
+    //     setProgres(0);
+    //   }
+
+    //   if (value.length == 1) {
+    //     setProgres(progresUnit);
+    //   }
+
+    //   if (value.length == 2) {
+    //     setProgres(progresUnit*2);
+    //   }
+    //   if (value.length == 3) {
+    //     setProgres(progresUnit*3);
+    //   }
+    //   if (value.length == 4) {
+    //     setProgres(progresUnit*4);
+    //   }
+    //   if (value.length == 5) {
+    //     setProgres(progresUnit*5);
+    //   }
+    //   if (value.length == 6) {
+    //     setProgres(progresUnit*6);
+    //   }
+    //   //*********************ProgressBar***********Start****** */
+
+    //   if (!cap.test(value)) {
+    //     setError({ ...errorShow, password: "One Capital letter required" });
+    //     return;
+    //   }
+
+    //   if (!lower.test(value)) {
+    //     setError({ ...errorShow, password: "One Lower letter required" });
+    //     return;
+    //   }
+
+    //   if (!digit.test(value)) {
+    //     setError({ ...errorShow, password: "At least one digit required" });
+    //     return;
+    //   }
+
+    //   if (!spchar.test(value)) {
+    //     setError({
+    //       ...errorShow,
+    //       password: "At least one Special Char required",
+    //     });
+    //     return;
+    //   }
+
+    //   if (!minlen.test(value)) {
+    //     setError({ ...errorShow, password: "At least 6 unit required" });
+    //     return;
+    //   } else {
+    //     setProgres(100);
+    //   }
+    //   console.log(progresShow);
+    // }
+    //**************Password Varification******End */
+    setFormData({ ...formData, [name]: value });
+    setError({ ...errorShow, [name]: "" });
+    //console.log(formData);
+
+    // Onchange Function end *****************************
+  };
+  // ********Error Function start ************validation**start*****************
+  /*********************Loader*start** */
+  let [loadShow, setLoad] = useState(false);
+  /*********************Loader*end** */
   let handleClick = () => {
+    
+    let regex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (formData.email === "") {
+      setError({ ...errorShow, email: " Email require" });
+    } else if (!regex.test(formData.email)) {
       setError({ ...errorShow, email: "Enter valid email" });
     } else if (formData.fullName === "") {
       setError({ ...errorShow, fullName: "Enter Your Name" });
     } else if (formData.password === "") {
       setError({ ...errorShow, password: "Enter valid Password" });
     } else {
-      signInWithEmailAndPassword(auth, formData.email, formData.password).then(
-        (user) => {
-          console.log(user);
-          
-        }
-      );
+      createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((user) => {
+          sendEmailVerification(auth.currentUser).then(() => {
+            // Email verification sent!
+            console.log("Email Send");
+            setLoad(!loadShow);
+            toast("Registration successful. Please check your email");
+            setTimeout(() => {
+              navigate("/login");
+            }, 2000);
+          });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          if (errorCode.includes("auth/email-already-in-use")) {
+            setError({ ...errorShow, email: "Email already exit" });
+          }
+
+          console.log(errorCode);
+        });
     }
   };
-  //**********Error Function end *****************************
+  //**********Error Function end ******************Validation End***********
 
   //**********IconPassword Start *****************************
   let [iconShow, setIcon] = useState(false);
@@ -85,6 +207,18 @@ const Registration = () => {
   return (
     <>
       <Grid container spacing={2}>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <Grid item xs={6}>
           <div className="regiLeftSide">
             <div className="regiLeftBox">
@@ -145,6 +279,10 @@ const Registration = () => {
                   ) : (
                     <AiFillEye className="iconEyeOpen" onClick={handleIcon} />
                   )}
+                  <BorderLinearProgress
+                    variant="determinate"
+                    value={progresShow}
+                  />
                 </div>
 
                 {errorShow.password && (
@@ -152,11 +290,25 @@ const Registration = () => {
                     {errorShow.password}
                   </Alert>
                 )}
-                <Pbutton
-                  click={handleClick}
-                  name={CommonButton}
-                  title="Sign Up"
-                />
+                {loadShow ? (
+                  <Rings
+                    height="70"
+                    width="70"
+                    color="#4fa94d"
+                    radius="15"
+                    wrapperStyle={{marginLeft:139}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="rings-loading"
+                  />
+                ) : (
+                  <Pbutton
+                    click={handleClick}
+                    name={CommonButton}
+                    title="Sign Up"
+                  />
+                )}
+
                 <AuthenticationLink
                   title=" Already  have an account ?"
                   href="/login"

@@ -90,3 +90,124 @@
   right: 4%;
   color: red;
 }
+
+.logOut {
+  cursor: pointer;
+
+  color: red;
+  font-size: 40px;
+}
+.sideBarbox {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  height: 100vh;
+}
+.sideBar {
+  width: 70%;
+  height: 98vh;
+  background: #5f35f5;
+  border-radius: 20px;
+  padding: 3px 4px;
+  box-sizing: border-box;
+}
+.profileDiv {
+  display: flex;
+  justify-content: center;
+}
+.profileImage {
+  width: 100%;
+  margin-top: 10px;
+}
+.iconBar {
+  font-size: 40px;
+  color: #ffffff;
+  display: inline;
+}
+
+.iconDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 40px;
+  margin-top: 50px;
+}
+
+.iconBar:hover {
+  padding: 10px 10px;
+  background: #ffffff;
+  color: #5f35f5;
+  border-radius: 20px 0px 0px 20px;
+}
+.groupHolder {
+  background: white;
+  height: 270px;
+  margin-top: 10px;
+  border-radius: 20px;
+  -webkit-box-shadow: 10px 10px 41px 15px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 41px 15px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 41px 15px rgba(0, 0, 0, 0.75);
+  overflow-y: scroll;
+}
+.groupHolder:last-child {
+  border-bottom: 0;
+}
+
+
+.groupHolder:first-child{
+  position:sticky ;
+}
+.groupNametitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+
+
+.h3Group {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+}
+.h5Note {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(77, 77, 77, 0.75);
+}
+.butGroup {
+  padding: 3px 3px;
+  background: #5f35f5;
+  color: #ffffff;
+  border: 1px solid #5f35f5;
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+}
+.butPlus {
+  height: 20px;
+  padding: 4px 20px;
+  background: #5f35f5;
+  color: #ffffff;
+  border: 1px solid #5f35f5;
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+}
+.unitUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #000055;
+  width: 100%;
+}
