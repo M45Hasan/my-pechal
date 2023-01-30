@@ -12,6 +12,7 @@ const UnitUser = (props) => {
           plusBut={props.plusBut}
           note={props.note}
           timeOnly={props.timeOnly}
+          del={props.del}
         />
       </div>
     </div>

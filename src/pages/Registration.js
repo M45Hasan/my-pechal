@@ -20,13 +20,14 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
+import { getDatabase, ref, set, push } from "firebase/database";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Rings } from "react-loader-spinner";
 import { useSelector } from "react-redux";
-
 
 //button Css start
 const CommonButton = styled(Button)({
@@ -47,14 +48,16 @@ const Registration = () => {
   const auth = getAuth();
   let navigate = useNavigate();
   let reduxReturnData = useSelector((state) => state);
+
+  const db = getDatabase();
   //  *******Firebase End**************************
   useEffect(() => {
-    if (Boolean(reduxReturnData.userStoreData.userInfo)===true) {
+    if (Boolean(reduxReturnData.userStoreData.userInfo) === true) {
       console.log("should stay in Home Page ");
 
       navigate("/home");
     }
-  },[]);
+  }, []);
 
   // Onchange Function Start*********getInput value *****************
   let [formData, setFormData] = useState({
@@ -159,7 +162,6 @@ const Registration = () => {
   let [loadShow, setLoad] = useState(false);
   /*********************Loader*end** */
   let handleClick = () => {
-    
     let regex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (formData.email === "") {
@@ -174,13 +176,32 @@ const Registration = () => {
       createUserWithEmailAndPassword(auth, formData.email, formData.password)
         .then((user) => {
           sendEmailVerification(auth.currentUser).then(() => {
-            // Email verification sent!
-            console.log("Email Send");
-            setLoad(!loadShow);
-            toast("Registration successful. Please check your email");
-            setTimeout(() => {
-              navigate("/login");
-            }, 2000);
+            console.log(user.user);
+            updateProfile(auth.currentUser, {
+              displayName: formData.fullName,
+              // photoURL: "https://example.com/jane-q-user/profile.jpg"
+            })
+              .then(() => {
+                // Email verification sent!
+                console.log("Email Send");
+                //########################################Send Database
+                set(ref(db, "users/" + user.user.uid), {
+                  displayName: user.user.displayName,
+                  email: user.user.email,
+                }).then(() => {
+                  //#######################################Loader
+                  setLoad(!loadShow);
+                  toast("Registration successful. Please check your email");
+                  setTimeout(() => {
+                    navigate("/login");
+                  }, 2000);
+                });
+              })
+
+              .catch((error) => {
+                // An error occurred
+                // ...
+              });
           });
         })
         .catch((error) => {
@@ -296,7 +317,7 @@ const Registration = () => {
                     width="70"
                     color="#4fa94d"
                     radius="15"
-                    wrapperStyle={{marginLeft:139}}
+                    wrapperStyle={{ marginLeft: 139 }}
                     wrapperClass=""
                     visible={true}
                     ariaLabel="rings-loading"

@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import GroupNametitle from "../components/GroupNametitle";
 import UnitUser from "../components/UnitUser";
+import UserList from "../components/UserList";
 
 const Home = () => {
   let navigate = useNavigate();
@@ -83,7 +84,7 @@ const Home = () => {
         <div className="groupHolder">
           <GroupNametitle
             title="Friend Request"
-            buttonName="View"
+            buttonName=""
             plusBut="false"
             note=""
             timeOnly={false}
@@ -91,6 +92,7 @@ const Home = () => {
           <UnitUser
             title="Johanburg"
             buttonName="Accept"
+            del="Reject"
             plusBut="false"
             note=" Wassup!"
             timeOnly={false}
@@ -99,6 +101,7 @@ const Home = () => {
           <UnitUser
             title="Joh"
             buttonName="Accept"
+            del="Reject"
             plusBut="false"
             note=" Wassup!"
             timeOnly={false}
@@ -107,6 +110,7 @@ const Home = () => {
           <UnitUser
             title="J anbur g"
             buttonName="Accept"
+            del="Reject"
             plusBut="false"
             note=" Wassup!"
             timeOnly={false}
@@ -115,6 +119,7 @@ const Home = () => {
           <UnitUser
             title="XXohanburg"
             buttonName="Accept"
+            del="Reject"
             plusBut="false"
             note=" Wassup!"
             timeOnly={false}
@@ -123,6 +128,7 @@ const Home = () => {
           <UnitUser
             title="Joh"
             buttonName="Accept"
+            del="Reject"
             plusBut="false"
             note=" Wassup!"
             timeOnly={false}
@@ -131,6 +137,7 @@ const Home = () => {
           <UnitUser
             title="J anbur g"
             buttonName="Accept"
+            del="Reject"
             plusBut="false"
             note=" Wassup!"
             timeOnly={false}
@@ -139,6 +146,7 @@ const Home = () => {
           <UnitUser
             title="XXohanburg"
             buttonName="Accept"
+            del="Reject"
             plusBut="false"
             note=" Wassup!"
             timeOnly={false}
@@ -146,6 +154,7 @@ const Home = () => {
           />
         </div>
       </Grid>
+
       <Grid item xs={3}>
         <div className="groupHolder">
           <GroupNametitle
@@ -157,42 +166,42 @@ const Home = () => {
           />
           <UnitUser
             title="Joh"
-            buttonName="Accept"
+            buttonName="Block"
             plusBut="false"
             note=" Wassup!"
-            timeOnly={true}
+            timeOnly={false}
             imgsrc="assets/g1.png"
           />
           <UnitUser
             title="Joh"
-            buttonName="Accept"
+            buttonName="Block"
             plusBut="false"
             note=" Wassup!"
-            timeOnly={true}
+            timeOnly={false}
             imgsrc="assets/f3.png"
           />
           <UnitUser
             title="Joh"
-            buttonName="Accept"
+            buttonName="Block"
             plusBut="false"
             note=" Wassup!"
-            timeOnly={true}
+            timeOnly={false}
             imgsrc="assets/f4.png"
           />
           <UnitUser
             title="Joh"
-            buttonName="Accept"
+            buttonName="Block"
             plusBut="false"
             note=" Wassup!"
-            timeOnly={true}
+            timeOnly={false}
             imgsrc="assets/g2.png"
           />
           <UnitUser
             title="Joh"
-            buttonName="Accept"
+            buttonName="Block"
             plusBut="false"
             note=" Wassup!"
-            timeOnly={true}
+            timeOnly={false}
             imgsrc="assets/g3.png"
           />
         </div>
@@ -200,7 +209,7 @@ const Home = () => {
         <div className="groupHolder">
           <GroupNametitle
             title="My Group "
-            buttonName="View"
+            buttonName="Create Group"
             plusBut="false"
             note=""
             timeOnly={false}
@@ -256,46 +265,8 @@ const Home = () => {
             note=""
             timeOnly={false}
           />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="true"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g3.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="true"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="true"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f3.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="true"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g2.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="true"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
+
+          <UserList />
         </div>
         <div className="groupHolder">
           <GroupNametitle

@@ -112,6 +112,7 @@
   border-radius: 20px;
   padding: 3px 4px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .profileDiv {
   display: flex;
@@ -132,8 +133,8 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  row-gap: 40px;
-  margin-top: 50px;
+  row-gap: 30px;
+  margin-top: 30px;
 }
 
 .iconBar:hover {
@@ -156,17 +157,14 @@
   border-bottom: 0;
 }
 
-
-.groupHolder:first-child{
-  position:sticky ;
+.groupHolder:first-child {
+  position: sticky;
 }
 .groupNametitle {
   display: flex;
   justify-content: space-between;
   padding: 10px;
 }
-
-
 
 .h3Group {
   font-family: "Poppins", sans-serif;
@@ -182,7 +180,8 @@
   color: rgba(77, 77, 77, 0.75);
 }
 .butGroup {
-  padding: 3px 3px;
+  height: 20px;
+  padding: 4px 6px;
   background: #5f35f5;
   color: #ffffff;
   border: 1px solid #5f35f5;
@@ -191,10 +190,11 @@
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
+  cursor: pointer;
 }
 .butPlus {
   height: 20px;
-  padding: 4px 20px;
+  padding: 4px 6px;
   background: #5f35f5;
   color: #ffffff;
   border: 1px solid #5f35f5;
@@ -203,6 +203,7 @@
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
+  cursor: pointer;
 }
 .unitUser {
   display: flex;
@@ -210,4 +211,25 @@
   align-items: center;
   border-bottom: 1px solid #000055;
   width: 100%;
+}
+.rejectAcc {
+  display: flex;
+  column-gap: 5px;
+}
+
+.h5userName{
+  color:#ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  font-family:"Poppins";
+  margin-top: 2px;
+  text-align: center;
+}
+.h5userEmail{
+  color:#ffffff;
+  font-size: 6px;
+  font-weight: 600;
+  font-family:"Poppins";
+  margin-top: 2px;
+  text-align: center;
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
-import {MdDeleteForever}from "react-icons/md"
+
+
 const GroupNametitle = (props) => {
   return (
     <>
@@ -14,16 +15,24 @@ const GroupNametitle = (props) => {
               <h5 className="h5Note">{props.note}</h5>
             )}
           </div>
+          <div className="rejectAcc">
+          {props.del=="Reject" && <p style={{backgroundColor:"red"}} className="butGroup">{props.del}</p> }
           {props.plusBut == "true" ? (
             <p className="butPlus">
               <FaPlus />
             </p>
           ) : (
+           
             
-            <button className="butGroup">{props.buttonName}</button>
+          
+            
+            <p className="butGroup">{props.buttonName}</p>
             
               
           )}
+
+          
+          </div>
         </div>
       ) : (
         <div className="groupNametitle">

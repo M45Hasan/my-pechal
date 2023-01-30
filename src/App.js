@@ -9,7 +9,8 @@ import {
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import RootLayout from "./components/RootLayout";
-import { Message } from "@mui/icons-material";
+import  Message  from "./pages/Message";
+
 
 let router = createBrowserRouter(
   createRoutesFromElements(
