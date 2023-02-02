@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import LogoutButton from "../components/LogoutButton";
 import Image from "./Image";
+import ImageCropper from "../components/ImageCropper";
 
 import { AiFillMessage, AiOutlineSetting, AiOutlineHome } from "react-icons/ai";
 import { BsBell } from "react-icons/bs";
@@ -12,18 +13,18 @@ import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import Stack from "@mui/material/Stack";
+import { getAuth } from "firebase/auth";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
+  borderRadius: "132px",
   transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  width: "40%",
+  height: "60%",
+  bgcolor: "black",
+  border: "2px solid coral",
   boxShadow: 24,
   p: 4,
 };
@@ -36,6 +37,9 @@ const RootLayout = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   let reduxReturnData = useSelector((state) => state);
+  const auth = getAuth();
+  console.log("URL RootRx:", reduxReturnData.userStoreData.userInfo.photoURL);
+
   return (
     <>
       <Grid container spacing={2}>
@@ -45,7 +49,12 @@ const RootLayout = () => {
               <div className="profileDiv" onClick={handleOpen}>
                 <Image
                   className="profileImage"
-                  imgsrc="../assets/profileImg.png"
+                  imgsrc={
+                    reduxReturnData.userStoreData.userInfo.photoURL !==
+                    "undefined"
+                      ? auth.currentUser.photoURL
+                      : reduxReturnData.userStoreData.userInfo.photoUR
+                  }
                 />
               </div>
               <h5 className="h5userName ">
@@ -78,28 +87,26 @@ const RootLayout = () => {
           >
             <Box sx={style}>
               <Typography
-                style={{ textAlign: "center" }}
+                style={{
+                  textAlign: "center",
+                  fontWeight: "500",
+                  color: "coral",
+                }}
                 id="modal-modal-title"
                 variant="h6"
                 component="h2"
               >
                 Image Upload
-                <Stack
+                {/* <Stack
                   direction="row"
                   style={{ paddingLeft: "45%" }}
                   alignItems="center"
                   spacing={2}
                 >
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="label"
-                  >
-                    <input hidden accept="image/*" type="file" />
-                    <PhotoCamera />
-                  </IconButton>
-                </Stack>
+              
+                </Stack> */}
               </Typography>
+              <ImageCropper />
             </Box>
           </Modal>
         </Grid>

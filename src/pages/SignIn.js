@@ -167,13 +167,21 @@ const SignIn = () => {
   /***************************************************googleLogIn**start */
 
   let handleGoogle = () => {
-    signInWithPopup(auth, provider).then((result) => {
-      navigate("/home");
-      console.log("google login");
-    });
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        navigate("/home");
+        console.log("google login");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+
+        console.log("Google LoginError:", errorCode);
+        
+        // ..
+      });
   };
   /*##################Fgp Function####### */
-  let [modalShow,setModal]=useState(true)
+  let [modalShow, setModal] = useState(true);
   let handelFgp = () => {
     /**############# Fgp Email Validation Start ############ */
     let regex =

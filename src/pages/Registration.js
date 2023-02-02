@@ -64,6 +64,7 @@ const Registration = () => {
     email: "",
     fullName: "",
     password: "",
+    photoURL: "",
   });
   let [errorShow, setError] = useState({
     email: "",
@@ -179,7 +180,8 @@ const Registration = () => {
             console.log(user.user);
             updateProfile(auth.currentUser, {
               displayName: formData.fullName,
-              // photoURL: "https://example.com/jane-q-user/profile.jpg"
+              
+      
             })
               .then(() => {
                 // Email verification sent!
@@ -188,6 +190,7 @@ const Registration = () => {
                 set(ref(db, "users/" + user.user.uid), {
                   displayName: user.user.displayName,
                   email: user.user.email,
+                  
                 }).then(() => {
                   //#######################################Loader
                   setLoad(!loadShow);

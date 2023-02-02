@@ -117,10 +117,13 @@
 .profileDiv {
   display: flex;
   justify-content: center;
+  margin-top: 10px;
 }
 .profileImage {
   width: 100%;
-  margin-top: 10px;
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
 }
 .iconBar {
   font-size: 40px;
@@ -217,19 +220,59 @@
   column-gap: 5px;
 }
 
-.h5userName{
-  color:#ffffff;
+.h5userName {
+  color: #ffffff;
   font-size: 10px;
   font-weight: 600;
-  font-family:"Poppins";
+  font-family: "Poppins";
   margin-top: 2px;
   text-align: center;
 }
-.h5userEmail{
-  color:#ffffff;
+.h5userEmail {
+  color: #ffffff;
   font-size: 6px;
   font-weight: 600;
-  font-family:"Poppins";
+  font-family: "Poppins";
   margin-top: 2px;
   text-align: center;
+}
+
+.cropperPrev {
+  display: flex;
+  justify-content: space-between;
+}
+
+.croppButt {
+  padding: 8px !important;
+  background: #5f35f5 !important;
+  color: #ffffff !important;
+  height: 30px !important;
+  border-radius: 20px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  transform: translate(206px, 30px) !important;
+}
+
+.cropperIn {
+  transform: translateX(120px);
+  background: #ea6c00;
+}
+.img-preview {
+  width: 70px !important;
+  height: 70px !important;
+  overflow: hidden;
+  position: fixed;
+  border-radius: 50%;
+}
+
+.croppedImage {
+  width: 100%;
+  height: 100%;
+}
+.usrImgeCropperDiv {
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #5f35f5;
 }
