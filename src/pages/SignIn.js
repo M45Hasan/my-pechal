@@ -120,6 +120,7 @@ const SignIn = () => {
           navigate("/home");
           localStorage.setItem("userInfo", JSON.stringify(userCredential.user));
           dispatch(activeUser(userCredential.user));
+          console.log("dispatch",userCredential.user.photoURL)
           // if (userCredential.user.emailVerified === true) {   //** */Email Verify
           //   navigate("/home")
           // }

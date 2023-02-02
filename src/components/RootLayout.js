@@ -49,12 +49,7 @@ const RootLayout = () => {
               <div className="profileDiv" onClick={handleOpen}>
                 <Image
                   className="profileImage"
-                  imgsrc={
-                    reduxReturnData.userStoreData.userInfo.photoURL !==
-                    "undefined"
-                      ? auth.currentUser.photoURL
-                      : reduxReturnData.userStoreData.userInfo.photoUR
-                  }
+                  imgsrc={reduxReturnData.userStoreData.userInfo.photoURL}
                 />
               </div>
               <h5 className="h5userName ">

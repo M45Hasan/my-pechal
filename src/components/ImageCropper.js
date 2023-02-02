@@ -5,7 +5,8 @@ import "cropperjs/dist/cropper.css";
 
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { activeUser } from "../slices/UserSlice";
 import Button from "@mui/material/Button";
 import {
   getStorage,
@@ -20,10 +21,12 @@ import { getAuth, updateProfile } from "firebase/auth";
 const ImageCropper = () => {
   //###### Croper Function #######
   const [image, setImage] = useState();
+  const [show, setShow] = useState(true);
   const auth = getAuth();
   const [cropData, setCropData] = useState();
   const [cropper, setCropper] = useState();
   let reduxReturnData = useSelector((state) => state);
+  let dispatch = useDispatch();
 
   console.log("Crooper", reduxReturnData);
   const onChange = (e) => {
@@ -54,22 +57,22 @@ const ImageCropper = () => {
         console.log("Uploaded a data_url string!");
         getDownloadURL(storageRef).then((downloadURL) => {
           console.log("File available at", downloadURL);
-          updateProfile(auth.currentUser.photoURL, {
-          
+
+          dispatch(reduxReturnData.userStoreData.userInfo, {
             photoURL: downloadURL,
           });
           console.log(
             "URL redx:",
-            reduxReturnData.userStoreData.userInfo.photoURL
-          );console.log(
-            "URL uth:",
-            auth.currentUser.photoURL
+            (reduxReturnData.userStoreData.userInfo.photoURL = downloadURL)
           );
+          console.log("URL uth:", auth.currentUser.photoURL);
         });
       });
     }
   };
-
+  let handleCrop = () => {
+    setShow(!show);
+  };
   return (
     <>
       <div>
@@ -80,11 +83,12 @@ const ImageCropper = () => {
             aria-label="upload picture"
             component="label"
           >
-            <PhotoCamera />
+            <PhotoCamera onClick={handleCrop} />
             <input hidden type="file" accept="image/*" onChange={onChange} />
           </IconButton>
 
           <br />
+          {/* ######################## Show */}
           {image === undefined ? (
             <>
               <div
@@ -134,8 +138,8 @@ const ImageCropper = () => {
               preview=".img-preview"
               src={image}
               viewMode={1}
-              minCropBoxHeight={10}
-              minCropBoxWidth={10}
+              minCropBoxHeight={70}
+              minCropBoxWidth={70}
               background={false}
               responsive={true}
               autoCropArea={1}
@@ -146,6 +150,7 @@ const ImageCropper = () => {
               guides={true}
             />
           )}
+          {/* #####################End */}
         </div>
 
         <div className="cropperPrev">
