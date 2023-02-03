@@ -3,9 +3,12 @@ import GroupNametitle from "../components/GroupNametitle";
 import Image from "../components/Image";
 const UnitUser = (props) => {
   return (
-    <div className="unitUser">
-      <Image style={{width:"15%"}} imgsrc={props.imgsrc} />
-      <div style={{width:"80%"}}>
+    <div className="unitUser" style={{height:"70px !important",width:"70px !improtant",}}>
+      <Image
+       style={{height:"70px !important",width:"70px !improtant",borderRadius:"50% !important"}}
+        imgsrc={props.imgsrc} alt={props.alt}
+      />
+      <div style={{ width: "80%" }}>
         <GroupNametitle
           title={props.title}
           buttonName={props.buttonName}

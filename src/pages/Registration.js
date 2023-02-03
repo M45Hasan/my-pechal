@@ -174,14 +174,18 @@ const Registration = () => {
     } else if (formData.password === "") {
       setError({ ...errorShow, password: "Enter valid Password" });
     } else {
-      createUserWithEmailAndPassword(auth, formData.email, formData.password)
+      createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password,
+        formData.photoURL
+      )
         .then((user) => {
           sendEmailVerification(auth.currentUser).then(() => {
             console.log(user.user);
             updateProfile(auth.currentUser, {
               displayName: formData.fullName,
-              
-      
+              photoURL: formData.photoURL,
             })
               .then(() => {
                 // Email verification sent!
@@ -190,7 +194,7 @@ const Registration = () => {
                 set(ref(db, "users/" + user.user.uid), {
                   displayName: user.user.displayName,
                   email: user.user.email,
-                  
+                  photoURL: user.user.photoURL,
                 }).then(() => {
                   //#######################################Loader
                   setLoad(!loadShow);

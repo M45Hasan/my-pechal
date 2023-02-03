@@ -6,7 +6,7 @@ import "cropperjs/dist/cropper.css";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { useSelector, useDispatch } from "react-redux";
-import { activeUser } from "../slices/UserSlice";
+
 import Button from "@mui/material/Button";
 import {
   getStorage,
@@ -58,14 +58,9 @@ const ImageCropper = () => {
         getDownloadURL(storageRef).then((downloadURL) => {
           console.log("File available at", downloadURL);
 
-          dispatch(reduxReturnData.userStoreData.userInfo, {
+          updateProfile(auth.currentUser, {
             photoURL: downloadURL,
-          });
-          console.log(
-            "URL redx:",
-            (reduxReturnData.userStoreData.userInfo.photoURL = downloadURL)
-          );
-          console.log("URL uth:", auth.currentUser.photoURL);
+          }).then(() => {});
         });
       });
     }
