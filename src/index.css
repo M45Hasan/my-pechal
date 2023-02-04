@@ -124,6 +124,7 @@
   width: 70px;
   height: 70px;
   border-radius: 100%;
+  object-fit: scale-down;
 }
 .iconBar {
   font-size: 40px;
@@ -168,7 +169,10 @@
   justify-content: space-between;
   padding: 10px;
 }
-
+.buttonFlex {
+  display: flex;
+  justify-items: end;
+}
 .h3Group {
   font-family: "Poppins", sans-serif;
   font-style: normal;
@@ -216,6 +220,7 @@
 }
 .rejectAcc {
   display: flex;
+  justify-items: end;
   column-gap: 5px;
 }
 
@@ -279,4 +284,18 @@
 .kameraNice {
   display: flex;
   justify-content: center;
+}
+
+.userListDiv {
+  height: 270px;
+}
+.uniImageDiv {
+  height: 60px !important;
+}
+
+.unitUserImg {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  object-fit: scale-down;
 }

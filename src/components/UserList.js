@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import UnitUser from "../components/UnitUser";
-import { getDatabase, ref, onValue } from "firebase/database";
+
+import { getDatabase, ref, onValue, set, push } from "firebase/database";
 import { useSelector } from "react-redux";
-import { getAuth } from "firebase/auth";
-import { getStorage, ref as def, getDownloadURL } from "firebase/storage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserList = () => {
   const db = getDatabase();
-  const storage = getStorage();
-  const auth = getAuth();
+
   let [usersList, setUserlist] = useState([]);
-  let [id, setId] = useState();
+  
 
   let data = useSelector((state) => state);
-
+  /**######################### USERList Read */
   useEffect(() => {
     const usersRef = ref(db, "users/");
 
@@ -30,20 +29,112 @@ const UserList = () => {
     });
   }, []);
 
+  /**######################### Friend Request Read */
+  let [frq, setFrq] = useState([]);
+  useEffect(() => {
+    const usersRef = ref(db, "friendrequest");
+
+    onValue(usersRef, (snapshot) => {
+      let arr = [];
+      snapshot.forEach((item) => {
+        arr.push(item.val().receiverUid + item.val().senderUid);
+      });
+      setFrq(arr);
+    });
+  }, []);
+
+  /**######################### Button Fun Start */
+
+  let butPand = (item) => {
+    console.log(item.uid);
+  };
+
+  let butRequ = (item) => {
+    console.log("ami request", item.displayName);
+   
+    toast(" Sent");
+
+    set(push(ref(db, "friendrequest/")), {
+      senderName: data.userStoreData.userInfo.displayName,
+      senderUid: data.userStoreData.userInfo.uid,
+      senderPhotoURL: data.userStoreData.userInfo.photoURL,
+      senderEmail: data.userStoreData.userInfo.email,
+      receiverName: item.displayName,
+      receiverUid: item.uid,
+    });
+  };
+
+  /**######################### Button Fun Start */
   return (
     <>
       {usersList.map((item) => (
-        <>
-          <UnitUser
-            title={item.displayName}
-            buttonName="Request"
-            plusBut="false"
-            note={item.uid}
-            timeOnly={false}
-            alt="User Pic"
-            imgsrc={item.photoURL}
-          />
-        </>
+        <div className="unitUser">
+          <div className="uniImageDiv">
+            <img
+              className="unitUserImg"
+              style={{
+                width: "70px !important",
+                height: "70px important",
+                borderRadious: "50% !important",
+              }}
+              src={item.photoURL}
+              alt="User Pic"
+            />
+          </div>
+          <div style={{ width: "80%" }}>
+            <div className="groupNametitle">
+              <div>
+                <h3 className="h3Group">{item.displayName}</h3>
+
+                <h5 style={{ fontSize: "10px" }} className="h5Note">
+                  {item.email}
+                </h5>
+              </div>
+
+              <div className="buttonFlex">
+                <div className="rejectAcc">
+                  <ToastContainer
+                    position="top-center"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                  />
+
+                  {frq.includes(
+                    item.uid + data.userStoreData.userInfo.uid ||
+                      data.userStoreData.userInfo.uid + item.uid
+                  ) ? (
+                    <p
+                      onClick={() => butPand(item)}
+                      style={{
+                        backgroundColor: "magenta",
+                        fontSize: "10px",
+                        textAlign: "center",
+                      }}
+                      className="butGroup"
+                    >
+                      Pandding
+                    </p>
+                  ) : (
+                    <p
+                      onClick={() => butRequ(item)}
+                      style={{ fontSize: "8px" }}
+                      className="butGroup"
+                    >
+                      Send Request
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       ))}
     </>
   );

@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import GroupNametitle from "../components/GroupNametitle";
 import UnitUser from "../components/UnitUser";
 import UserList from "../components/UserList";
+import FriendRequest from "../components/FriendRequest";
+// import Friends from "../components/Friends"
 
 const Home = () => {
   let navigate = useNavigate();
@@ -89,69 +91,8 @@ const Home = () => {
             note=""
             timeOnly={false}
           />
-          <UnitUser
-            title="Johanburg"
-            buttonName="Accept"
-            del="Reject"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            del="Reject"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f2.png"
-          />
-          <UnitUser
-            title="J anbur g"
-            buttonName="Accept"
-            del="Reject"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f3.png"
-          />
-          <UnitUser
-            title="XXohanburg"
-            buttonName="Accept"
-            del="Reject"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f4.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            del="Reject"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f2.png"
-          />
-          <UnitUser
-            title="J anbur g"
-            buttonName="Accept"
-            del="Reject"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f3.png"
-          />
-          <UnitUser
-            title="XXohanburg"
-            buttonName="Accept"
-            del="Reject"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f4.png"
-          />
+          
+          <FriendRequest/>
         </div>
       </Grid>
 
@@ -159,10 +100,8 @@ const Home = () => {
         <div className="groupHolder">
           <GroupNametitle
             title="Friends "
-            buttonName="View"
-            plusBut="false"
-            note=""
-            timeOnly={false}
+            buttonName=""
+            
           />
           <UnitUser
             title="Joh"
@@ -172,38 +111,7 @@ const Home = () => {
             timeOnly={false}
             imgsrc="assets/g1.png"
           />
-          <UnitUser
-            title="Joh"
-            buttonName="Block"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f3.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Block"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/f4.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Block"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g2.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Block"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g3.png"
-          />
+        
         </div>
 
         <div className="groupHolder">
@@ -265,8 +173,9 @@ const Home = () => {
             note=""
             timeOnly={false}
           />
-
+          <div className="userListDiv">
           <UserList />
+          </div>
         </div>
         <div className="groupHolder">
           <GroupNametitle

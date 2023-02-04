@@ -1,16 +1,16 @@
 import React from "react";
 
-const Image = ({ imgsrc, className, alt }) => {
+const Image = ({ imgsrc, alt,className }) => {
   return (
     <>
       <img
-        src={imgsrc}
         className={className}
         style={{
           width: "70px !important",
           height: "70px important",
           borderRadious: "50% !important",
         }}
+        src={imgsrc}
         alt={alt}
       />
     </>
