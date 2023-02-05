@@ -7,6 +7,8 @@ import GroupNametitle from "../components/GroupNametitle";
 import UnitUser from "../components/UnitUser";
 import UserList from "../components/UserList";
 import FriendRequest from "../components/FriendRequest";
+import Friends from "../components/Friends";
+import BlockList from "../components/BlockList";
 // import Friends from "../components/Friends"
 
 const Home = () => {
@@ -91,27 +93,16 @@ const Home = () => {
             note=""
             timeOnly={false}
           />
-          
-          <FriendRequest/>
+
+          <FriendRequest />
         </div>
       </Grid>
 
       <Grid item xs={3}>
         <div className="groupHolder">
-          <GroupNametitle
-            title="Friends "
-            buttonName=""
-            
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Block"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g1.png"
-          />
-        
+          <GroupNametitle title="Friends " buttonName="" />
+
+          <Friends />
         </div>
 
         <div className="groupHolder">
@@ -174,73 +165,19 @@ const Home = () => {
             timeOnly={false}
           />
           <div className="userListDiv">
-          <UserList />
+            <UserList />
           </div>
         </div>
         <div className="groupHolder">
           <GroupNametitle
             title="Block Users "
-            buttonName="View"
+            buttonName=""
             plusBut="false"
             note=""
             timeOnly={false}
           />
-          <UnitUser
-            title="Joh"
-            buttonName="Unblock"
-            plusBut="false"
-            note="Time"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Unblock"
-            plusBut="false"
-            note="Time"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Unblock"
-            plusBut="false"
-            note="Time"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Unblock"
-            plusBut="false"
-            note="Time"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Unblock"
-            plusBut="false"
-            note="Time"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Unblock"
-            plusBut="false"
-            note="Time"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Unblock"
-            plusBut="false"
-            note="Time"
-            timeOnly={false}
-            imgsrc="assets/f1.png"
-          />
+        
+        <BlockList/>
         </div>
       </Grid>
     </>

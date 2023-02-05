@@ -9,7 +9,6 @@ const UserList = () => {
   const db = getDatabase();
 
   let [usersList, setUserlist] = useState([]);
-  
 
   let data = useSelector((state) => state);
   /**######################### USERList Read */
@@ -51,20 +50,28 @@ const UserList = () => {
 
   let butRequ = (item) => {
     console.log("ami request", item.displayName);
-   
+
     toast(" Sent");
 
-    set(push(ref(db, "friendrequest/")), {
+    set(push(ref(db, "friendrequest")), {
       senderName: data.userStoreData.userInfo.displayName,
       senderUid: data.userStoreData.userInfo.uid,
       senderPhotoURL: data.userStoreData.userInfo.photoURL,
       senderEmail: data.userStoreData.userInfo.email,
       receiverName: item.displayName,
       receiverUid: item.uid,
+      receiverPhotoURL: item.photoURL,
+      receiverEmail: item.email,
     });
   };
 
-  /**######################### Button Fun Start */
+  /**######################### Button Fun end */
+  /**######################### userList penddingTo friend button start */
+  
+ 
+
+  /**######################### userList penddingTo friend button start */
+
   return (
     <>
       {usersList.map((item) => (
@@ -93,43 +100,49 @@ const UserList = () => {
 
               <div className="buttonFlex">
                 <div className="rejectAcc">
-                  <ToastContainer
-                    position="top-center"
-                    autoClose={2000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                  />
+                  
+                    <>
+                      <ToastContainer
+                        position="top-center"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                      />
 
-                  {frq.includes(
-                    item.uid + data.userStoreData.userInfo.uid ||
-                      data.userStoreData.userInfo.uid + item.uid
-                  ) ? (
-                    <p
-                      onClick={() => butPand(item)}
-                      style={{
-                        backgroundColor: "magenta",
-                        fontSize: "10px",
-                        textAlign: "center",
-                      }}
-                      className="butGroup"
-                    >
-                      Pandding
-                    </p>
-                  ) : (
-                    <p
-                      onClick={() => butRequ(item)}
-                      style={{ fontSize: "8px" }}
-                      className="butGroup"
-                    >
-                      Send Request
-                    </p>
-                  )}
+                      {frq.includes(
+                        item.uid + data.userStoreData.userInfo.uid
+                      ) ||
+                      frq.includes(
+                        data.userStoreData.userInfo.uid + item.uid
+                      ) ? (
+                        <p
+                          onClick={() => butPand(item)}
+                          style={{
+                            backgroundColor: "magenta",
+                            fontSize: "10px",
+                            textAlign: "center",
+                          }}
+                          className="butGroup"
+                        >
+                          Pendding
+                        </p>
+                      ) : (
+                        <p
+                          onClick={() => butRequ(item)}
+                          style={{ fontSize: "8px" }}
+                          className="butGroup"
+                        >
+                          Send Request
+                        </p>
+                      )}
+                    </>
+              
                 </div>
               </div>
             </div>
