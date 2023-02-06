@@ -37,34 +37,36 @@ const Friends = () => {
   let buttBlock = (item) => {
     console.log(item);
     if (data.userStoreData.userInfo.uid === item.senderUid) {
-      set(push(ref(db, "block/")), {
+      set(push(ref(db, "block")), {
         blocked: item.receiverName,
         blockedId: item.receiverUid,
         blockedEmail: item.receiverEmail,
         blockedPhotoURL: item.receiverPhotoURL,
 
-        // blockBy: item.senderName,
-        // blockById: item.senderUid,
-        // blockByEmail: item.senderEmail,
-        // blockByPhotoURL: item.senderPhotoURL,
+         blockBy: item.senderName,
+         blockById: item.senderUid,
+         blockByEmail: item.senderEmail,
+         blockByPhotoURL: item.senderPhotoURL,
+         date:item.date,
       }).then(() => {
-        remove(ref(db, "friends" + item.id)).then(() => {
+        remove(ref(db, "friends/" + item.date)).then(() => {
           console.log("Delete");
         });
       });
     } else {
-      set(push(ref(db, "block/")), {
+      set(push(ref(db, "block")), {
         blocked: item.senderName,
         blockedId: item.senderUid,
         blockedEmail: item.senderEmail,
         blockedPhotoURL: item.senderPhotoURL,
 
-        // blockBy: item.receiverName,
-        // blockById: item.receiverUid,
-        // blockByEmail: item.receiverEmail,
-        // blockByPhotoURL: item.receiverPhotoURL,
+         blockBy: item.receiverName,
+         blockById: item.receiverUid,
+         blockByEmail: item.receiverEmail,
+         blockByPhotoURL: item.receiverPhotoURL,
+         date:item.date,
       }).then(() => {
-        remove(ref(db, "friends" + item.id)).then(() => {
+        remove(ref(db, "friends/" + item.date)).then(() => {
           console.log("Delete");
         });
       });

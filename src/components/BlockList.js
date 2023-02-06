@@ -24,23 +24,8 @@ const BlockList = () => {
     onValue(usersRef, (snapshot) => {
       let arr = [];
       snapshot.forEach((item) => {
-        if (item.val().blockById === data.userStoreData.userInfo.uid) {
-          arr.push({
-            blockedName: item.val().blocked,
-            blockedId: item.val().blockedId,
-            blockedEmail: item.val().blockedEmail,
-            blockedPhotoURL: item.val().blockedPhotoURL,
-            id: item.key,
-          });
-        } else {
-          arr.push({
-            blockByName: item.val().blockBy,
-            blockById: item.val().blockById,
-            blockByEmail: item.val().blockByEmail,
-            blockByPhotoURL: item.val().blockByPhotoURL,
-
-            id: item.key,
-          });
+        if (data.userStoreData.userInfo.uid==item.val().blockById) {
+          arr.push({ ...item.val(), id: item.key });
         }
       });
       setBllist(arr);
@@ -71,7 +56,7 @@ const BlockList = () => {
                   <h3 className="h3Group">{item.blocked}</h3>
 
                   <h5 style={{ fontSize: "10px" }} className="h5Note">
-                    {item.senderEmail}
+                    BlockedBy:{item.blockBy}
                   </h5>
                 </div>
 
