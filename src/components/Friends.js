@@ -26,7 +26,7 @@ const Friends = () => {
           data.userStoreData.userInfo.uid === item.val().receiverUid ||
           data.userStoreData.userInfo.uid === item.val().senderUid
         ) {
-          arr.push({ ...item.val() });
+          arr.push({ ...item.val(),uid:item.key });
         }
       });
       setFnd(arr);
@@ -36,6 +36,8 @@ const Friends = () => {
 
   let buttBlock = (item) => {
     console.log(item);
+    console.log("receId",item.receiverUid);
+    console.log("infouid",data.userStoreData.userInfo.uid);
     if (data.userStoreData.userInfo.uid === item.senderUid) {
       set(push(ref(db, "block")), {
         blocked: item.receiverName,
@@ -43,30 +45,32 @@ const Friends = () => {
         blockedEmail: item.receiverEmail,
         blockedPhotoURL: item.receiverPhotoURL,
 
-         blockBy: item.senderName,
-         blockById: item.senderUid,
-         blockByEmail: item.senderEmail,
-         blockByPhotoURL: item.senderPhotoURL,
-         date:item.date,
+        blockBy: item.senderName,
+        blockById: item.senderUid,
+        blockByEmail: item.senderEmail,
+        blockByPhotoURL: item.senderPhotoURL,
+        date: item.date,
       }).then(() => {
-        remove(ref(db, "friends/" + item.date)).then(() => {
+        remove(ref(db, "friends/" + item.uid)).then(() => {
           console.log("Delete");
         });
       });
     } else {
+      console.log("sendeRId",item.senderUid);
+    console.log("infouid",data.userStoreData.userInfo.uid);
       set(push(ref(db, "block")), {
         blocked: item.senderName,
         blockedId: item.senderUid,
         blockedEmail: item.senderEmail,
         blockedPhotoURL: item.senderPhotoURL,
 
-         blockBy: item.receiverName,
-         blockById: item.receiverUid,
-         blockByEmail: item.receiverEmail,
-         blockByPhotoURL: item.receiverPhotoURL,
-         date:item.date,
+        blockBy: item.receiverName,
+        blockById: item.receiverUid,
+        blockByEmail: item.receiverEmail,
+        blockByPhotoURL: item.receiverPhotoURL,
+        date: item.date,
       }).then(() => {
-        remove(ref(db, "friends/" + item.date)).then(() => {
+        remove(ref(db, "friends/" + item.uid)).then(() => {
           console.log("Delete");
         });
       });
@@ -114,9 +118,9 @@ const Friends = () => {
                       theme="light"
                     />
                     <div className="rejectAcc">
-                      <button onClick={() => buttBlock(item)} className="butGroup">
+                      <p onClick={() => buttBlock(item)} className="butGroup">
                         Block
-                      </button>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -160,9 +164,9 @@ const Friends = () => {
                       theme="light"
                     />
                     <div className="rejectAcc">
-                      <button onClick={() => buttBlock(item)} className="butGroup">
+                      <p onClick={() => buttBlock(item)} className="butGroup">
                         Block
-                      </button>
+                      </p>
                     </div>
                   </div>
                 </div>

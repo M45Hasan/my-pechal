@@ -51,6 +51,7 @@ const FriendRequest = () => {
         toast("thanks");
       });
     });
+    
   };
   return (
     <>
