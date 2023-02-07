@@ -11,12 +11,15 @@ import {
   push,
 } from "firebase/database";
 import { useSelector } from "react-redux";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const FriendRequest = () => {
   const db = getDatabase();
   let [frList, setFrlist] = useState([]);
   let data = useSelector((state) => state);
+
 
   useEffect(() => {
     const usersRef = ref(db, "friendrequest/");
@@ -33,6 +36,8 @@ const FriendRequest = () => {
     });
   }, []);
   /**###################### button function ########### */
+
+
   let requCancel = (fndRequ) => {
     remove(ref(db, "friendrequest/" + fndRequ.id)).then(() => {
       toast("Cancel!");
@@ -41,6 +46,7 @@ const FriendRequest = () => {
   };
 
   let requAccept = (item) => {
+   
     set(push(ref(db, "friends/")), {
       ...item,
       date: `${new Date().getDate()}/${

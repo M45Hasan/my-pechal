@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
@@ -35,70 +35,33 @@ const BlockList = () => {
   /**################ Button fnc  */
   let unBlock = (item) => {
     console.log(item);
-    console.log(item.id);
+    console.log("BlockById:",item.id);
+   
     
-      set(push(ref(db, "friends")), {
-        senderName:item.blocked,
-        senderUid: item.blockedID,
-        senderPhotoURL: item.blockedPhotoURL,
-        senderEmail: data.userStoreData.userInfo.email,
-        receiverName: data.userStoreData.userInfo.displayName,
-        receiverUid: data.userStoreData.userInfo.uid,
-        receiverPhotoURL: data.userStoreData.userInfo.photoURL,
-        receiverEmail:data.userStoreData.userInfo.email,
-      }).then(()=>{
+    if (data.userStoreData.userInfo.uid === item.blockById) {
+      console.log("hello blocked");
+      console.log(data.userStoreData.userInfo.uid);
+      console.log(item.blockById);
+      set(push(ref(db, "friends/")), {
+        senderName: item.blockBy,
+        senderUid: item.blockById,
+        senderPhotoURL: item.blockByPhotoURL,
+        senderEmail: item.blockByEmail,  
+
+        receiverName:item.blocked,
+        receiverUid: item.blockedId,
+        receiverPhotoURL:item.blockedPhotoURL,
+        receiverEmail:item.blockedEmail,
+        date: item.date,
+        id: item.id,
+        
+      }).then(() => {
+        console.log(item.id);
         remove(ref(db, "block/" + item.id)).then(() => {
           console.log("Delete");
         });
-
-      })
-   
-    
-    // if (data.userStoreData.userInfo.uid === item.blockedId) {
-    //   console.log("hello blocked");
-    //   console.log(data.userStoreData.userInfo.uid);
-    //   console.log(item.blockedId);
-    //   set(push(db, "friends"), {
-    //     senderName: item.blockBy,
-    //     senderUid: item.blockById,
-    //     senderPhotoURL: item.blockByPhotoURL,
-    //     senderEmail: item.blockByEmail,
-
-    //     receiverName: data.userStoreData.userInfo.displayName,
-    //     receiverUid: data.userStoreData.userInfo.uid,
-    //     receiverPhotoURL: data.userStoreData.userInfo.photoURL,
-    //     receiverEmail: data.userStoreData.userInfo.email,
-    //     date: item.date,
-    //     id: item.id,
-    //   }).then(() => {
-    //     console.log(item.id);
-    //     remove(ref(db, "block/" + item.id)).then(() => {
-    //       console.log("Delete");
-    //     });
-    //   });
-    // } else {
-    //   console.log("hello underblocked");
-    //   console.log(data.userStoreData.userInfo.uid);
-    //   console.log(item.blockById);
-    //   set(push(db, "friends"), {
-    //     receiverName: data.userStoreData.userInfo.displayName,
-    //     receiverUid: data.userStoreData.userInfo.uid,
-    //     receiverPhotoURL: data.userStoreData.userInfo.photoURL,
-    //     receiverEmail: data.userStoreData.userInfo.email,
-
-    //     senderName: item.blocked,
-    //     senderUid: item.blockedId,
-    //     senderPhotoURL: item.blockedPhotoURL,
-    //     senderEmail: item.blockedEmail,
-    //     date: item.date,
-    //     id: item.id,
-    //   }).then(() => {
-    //     console.log(item.id);
-    //     remove(ref(db, "block/" + item.id)).then(() => {
-    //       console.log("Delete");
-    //     });
-    //   });
-    // }
+      });
+    }
   };
 
   return (

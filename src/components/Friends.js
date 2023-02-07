@@ -8,7 +8,7 @@ import {
   remove,
 } from "firebase/database";
 import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Friends = () => {
@@ -26,7 +26,7 @@ const Friends = () => {
           data.userStoreData.userInfo.uid === item.val().receiverUid ||
           data.userStoreData.userInfo.uid === item.val().senderUid
         ) {
-          arr.push({ ...item.val(),uid:item.key });
+          arr.push({ ...item.val(), uid: item.key });
         }
       });
       setFnd(arr);
@@ -36,8 +36,8 @@ const Friends = () => {
 
   let buttBlock = (item) => {
     console.log(item);
-    console.log("receId",item.receiverUid);
-    console.log("infouid",data.userStoreData.userInfo.uid);
+    console.log("receId", item.receiverUid);
+    console.log("infouid", data.userStoreData.userInfo.uid);
     if (data.userStoreData.userInfo.uid === item.senderUid) {
       set(push(ref(db, "block")), {
         blocked: item.receiverName,
@@ -56,8 +56,8 @@ const Friends = () => {
         });
       });
     } else {
-      console.log("sendeRId",item.senderUid);
-    console.log("infouid",data.userStoreData.userInfo.uid);
+      console.log("sendeRId", item.senderUid);
+      console.log("infouid", data.userStoreData.userInfo.uid);
       set(push(ref(db, "block")), {
         blocked: item.senderName,
         blockedId: item.senderUid,
@@ -76,18 +76,24 @@ const Friends = () => {
       });
     }
   };
+
+  let unFriend = (item) => {
+    remove(ref(db, "friends/" + item.uid)).then(() => {
+      console.log("Delete");
+    });
+  };
   return (
     <>
       {fnd.map((item) => (
         <div className="unitUser">
-          {item.senderUid == data.userStoreData.userInfo.uid ? (
+          {item.senderUid === data.userStoreData.userInfo.uid ? (
             <>
               <div className="uniImageDiv">
                 <img
                   className="unitUserImg"
                   style={{
-                    width: "70px !important",
-                    height: "70px important",
+                    width: "60px !important",
+                    height: "60px important",
                     borderRadious: "50% !important",
                   }}
                   src={item.receiverPhotoURL}
@@ -118,6 +124,9 @@ const Friends = () => {
                       theme="light"
                     />
                     <div className="rejectAcc">
+                      <p onClick={() => unFriend(item)} className="butGroup">
+                        Unfriend
+                      </p>
                       <p onClick={() => buttBlock(item)} className="butGroup">
                         Block
                       </p>
@@ -132,8 +141,8 @@ const Friends = () => {
                 <img
                   className="unitUserImg"
                   style={{
-                    width: "70px !important",
-                    height: "70px important",
+                    width: "60px !important",
+                    height: "60px important",
                     borderRadious: "50% !important",
                   }}
                   src={item.senderPhotoURL}
@@ -164,6 +173,9 @@ const Friends = () => {
                       theme="light"
                     />
                     <div className="rejectAcc">
+                      <p onClick={() => unFriend(item)} className="butGroup">
+                        Unfriend
+                      </p>
                       <p onClick={() => buttBlock(item)} className="butGroup">
                         Block
                       </p>
