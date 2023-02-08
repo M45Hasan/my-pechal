@@ -28,7 +28,24 @@ const UserList = () => {
     });
   }, []);
 
+  /**######################### Block List Read */
+
+  // let [frBlock, setFrblock] = useState([]);
+  // useEffect(() => {
+  //   const usersRef = ref(db, "block");
+
+  //   onValue(usersRef, (snapshot) => {
+  //     let arr = [];
+  //     snapshot.forEach((item) => {
+  //       arr.push(item.val().blockById + item.val().blockedId);
+  //     });
+  //     setFrblock(arr);
+  //     console.log("ami blockButton:", arr);
+  //   });
+  // }, []);
+
   /**######################### Friend Request Read */
+
   let [frq, setFrq] = useState([]);
   useEffect(() => {
     const usersRef = ref(db, "friendrequest");
@@ -41,12 +58,21 @@ const UserList = () => {
       setFrq(arr);
     });
   }, []);
+  /**######################### Friend List for  Read */
+  let [frShow, setFrshow] = useState([]);
+  useEffect(() => {
+    const usersRef = ref(db, "friends");
+
+    onValue(usersRef, (snapshot) => {
+      let arr = [];
+      snapshot.forEach((item) => {
+        arr.push(item.val().receiverUid + item.val().senderUid);
+      });
+      setFrshow(arr);
+    });
+  }, []);
 
   /**######################### Button Fun Start */
-
-  let butPand = (item) => {
-    console.log(item.uid);
-  };
 
   let butRequ = (item) => {
     console.log("ami request", item.displayName);
@@ -67,8 +93,6 @@ const UserList = () => {
 
   /**######################### Button Fun end */
   /**######################### userList penddingTo friend button start */
-  
- 
 
   /**######################### userList penddingTo friend button start */
 
@@ -100,49 +124,82 @@ const UserList = () => {
 
               <div className="buttonFlex">
                 <div className="rejectAcc">
-                  
-                    <>
-                      <ToastContainer
-                        position="top-center"
-                        autoClose={2000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="light"
-                      />
+                  <>
+                    <ToastContainer
+                      position="top-center"
+                      autoClose={2000}
+                      hideProgressBar={false}
+                      newestOnTop={false}
+                      closeOnClick
+                      rtl={false}
+                      pauseOnFocusLoss
+                      draggable
+                      pauseOnHover
+                      theme="light"
+                    />
 
-                      {frq.includes(
+                    {frShow.includes(
+                      item.uid + data.userStoreData.userInfo.uid
+                    ) ||
+                    frShow.includes(
+                      data.userStoreData.userInfo.uid + item.uid
+                    ) ? (
+                      <p
+                        style={{
+                          backgroundColor: "orange",
+                          fontSize: "10px",
+                          textAlign: "center",
+                          color: "green",
+                        }}
+                        className="butGroup"
+                      >
+                        Friend
+                      </p>
+                    ) 
+                    
+                    // :frBlock.includes(
+                    //     item.blockedId + data.userStoreData.userInfo.uid
+                    //   ) ||
+                    //   frBlock.includes(
+                    //     data.userStoreData.userInfo.uid +item.blockedId     problem: not work
+                    //   ) ? (
+                    //   <p
+                    //     style={{
+                    //       backgroundColor: "orange",
+                    //       fontSize: "10px",
+                    //       textAlign: "center",
+                    //       color: "green",
+                    //     }}
+                    //     className="butGroup"
+                    //   >
+                    //     Block
+                    //   </p> )
+                    : frq.includes(
                         item.uid + data.userStoreData.userInfo.uid
                       ) ||
                       frq.includes(
                         data.userStoreData.userInfo.uid + item.uid
                       ) ? (
-                        <p
-                          onClick={() => butPand(item)}
-                          style={{
-                            backgroundColor: "magenta",
-                            fontSize: "10px",
-                            textAlign: "center",
-                          }}
-                          className="butGroup"
-                        >
-                          Pendding
-                        </p>
-                      ) : (
-                        <p
-                          onClick={() => butRequ(item)}
-                          style={{ fontSize: "8px" }}
-                          className="butGroup"
-                        >
-                          Send Request
-                        </p>
-                      )}
-                    </>
-              
+                      <p
+                        style={{
+                          backgroundColor: "magenta",
+                          fontSize: "10px",
+                          textAlign: "center",
+                        }}
+                        className="butGroup"
+                      >
+                        Pendding
+                      </p>
+                    ) : (
+                      <p
+                        onClick={() => butRequ(item)}
+                        style={{ fontSize: "8px" }}
+                        className="butGroup"
+                      >
+                        Send Request
+                      </p>
+                    )}
+                  </>
                 </div>
               </div>
             </div>

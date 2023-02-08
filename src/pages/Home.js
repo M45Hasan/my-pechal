@@ -4,11 +4,13 @@ import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import GroupNametitle from "../components/GroupNametitle";
-import UnitUser from "../components/UnitUser";
+
 import UserList from "../components/UserList";
 import FriendRequest from "../components/FriendRequest";
 import Friends from "../components/Friends";
 import BlockList from "../components/BlockList";
+import MyGroup from "../components/MyGroup";
+import  GroupList  from "../components/GroupList";
 // import Friends from "../components/Friends"
 
 const Home = () => {
@@ -28,61 +30,8 @@ const Home = () => {
     <>
       <Grid item xs={4}>
         <div className="groupHolder">
-          <GroupNametitle
-            title=" Groups List"
-            buttonName="Add Group"
-            plusBut="false"
-            note=""
-            timeOnly={false}
-          />
-          <UnitUser
-            title=" Hasan"
-            buttonName="Join"
-            plusBut="false"
-            note="Hi Guys, Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g1.png"
-          />
-          <UnitUser
-            title=" AK LOL"
-            buttonName="Join"
-            plusBut="false"
-            note="Hi Guys, Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g2.png"
-          />
-          <UnitUser
-            title=" Dev MERN"
-            buttonName="Join"
-            plusBut="false"
-            note="Hi Guys, Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g3.png"
-          />
-          <UnitUser
-            title=" HERO Alam"
-            buttonName="Join"
-            plusBut="false"
-            note="Hi Guys, Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g1.png"
-          />
-          <UnitUser
-            title="M Hasan"
-            buttonName="Join"
-            plusBut="false"
-            note="Hi Guys, Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g3.png"
-          />
-          <UnitUser
-            title="Johanburg"
-            buttonName="Join"
-            plusBut="false"
-            note="Hi Guys, Wassup!"
-            timeOnly={false}
-            imgsrc="assets/g1.png"
-          />
+         
+         <GroupList/>
         </div>
 
         <div className="groupHolder">
@@ -108,51 +57,13 @@ const Home = () => {
         <div className="groupHolder">
           <GroupNametitle
             title="My Group "
-            buttonName="Create Group"
+            buttonName=""
             plusBut="false"
             note=""
             timeOnly={false}
           />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={true}
-            imgsrc="assets/g1.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={true}
-            imgsrc="assets/f3.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={true}
-            imgsrc="assets/f4.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={true}
-            imgsrc="assets/g2.png"
-          />
-          <UnitUser
-            title="Joh"
-            buttonName="Accept"
-            plusBut="false"
-            note=" Wassup!"
-            timeOnly={true}
-            imgsrc="assets/g3.png"
-          />
+      
+          <MyGroup />
         </div>
       </Grid>
       <Grid item xs={4}>
@@ -168,6 +79,7 @@ const Home = () => {
             <UserList />
           </div>
         </div>
+
         <div className="groupHolder">
           <GroupNametitle
             title="Block Users "
@@ -176,8 +88,8 @@ const Home = () => {
             note=""
             timeOnly={false}
           />
-        
-        <BlockList/>
+
+          <BlockList />
         </div>
       </Grid>
     </>

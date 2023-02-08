@@ -10,6 +10,8 @@ import {
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 const Friends = () => {
   const db = getDatabase();
@@ -84,109 +86,116 @@ const Friends = () => {
   };
   return (
     <>
-      {fnd.map((item) => (
-        <div className="unitUser">
-          {item.senderUid === data.userStoreData.userInfo.uid ? (
-            <>
-              <div className="uniImageDiv">
-                <img
-                  className="unitUserImg"
-                  style={{
-                    width: "60px !important",
-                    height: "60px important",
-                    borderRadious: "50% !important",
-                  }}
-                  src={item.receiverPhotoURL}
-                  alt="User Pic"
-                />
-              </div>
-              <div style={{ width: "80%" }}>
-                <div className="groupNametitle">
-                  <div>
-                    <h3 className="h3Group">{item.receiverName}</h3>
+      {fnd.length > 0 ? (
+        fnd.map((item) => (
+          <div className="unitUser">
+            {item.senderUid === data.userStoreData.userInfo.uid ? (
+              <>
+                <div className="uniImageDiv">
+                  <img
+                    className="unitUserImg"
+                    style={{
+                      width: "60px !important",
+                      height: "60px important",
+                      borderRadious: "50% !important",
+                    }}
+                    src={item.receiverPhotoURL}
+                    alt="User Pic"
+                  />
+                </div>
+                <div style={{ width: "80%" }}>
+                  <div className="groupNametitle">
+                    <div>
+                      <h3 className="h3Group">{item.receiverName}</h3>
 
-                    <h5 style={{ fontSize: "10px" }} className="h5Note">
-                      {item.date}
-                    </h5>
-                  </div>
+                      <h5 style={{ fontSize: "10px" }} className="h5Note">
+                        {item.date}
+                      </h5>
+                    </div>
 
-                  <div className="buttonFlex">
-                    <ToastContainer
-                      position="top-center"
-                      autoClose={2000}
-                      hideProgressBar={false}
-                      newestOnTop={false}
-                      closeOnClick
-                      rtl={false}
-                      pauseOnFocusLoss
-                      draggable
-                      pauseOnHover
-                      theme="light"
-                    />
-                    <div className="rejectAcc">
-                      <p onClick={() => unFriend(item)} className="butGroup">
-                        Unfriend
-                      </p>
-                      <p onClick={() => buttBlock(item)} className="butGroup">
-                        Block
-                      </p>
+                    <div className="buttonFlex">
+                      <ToastContainer
+                        position="top-center"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                      />
+                      <div className="rejectAcc">
+                        <p onClick={() => unFriend(item)} className="butGroup">
+                          Unfriend
+                        </p>
+                        <p onClick={() => buttBlock(item)} className="butGroup">
+                          Block
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="uniImageDiv">
-                <img
-                  className="unitUserImg"
-                  style={{
-                    width: "60px !important",
-                    height: "60px important",
-                    borderRadious: "50% !important",
-                  }}
-                  src={item.senderPhotoURL}
-                  alt="User Pic"
-                />
-              </div>
-              <div style={{ width: "80%" }}>
-                <div className="groupNametitle">
-                  <div>
-                    <h3 className="h3Group">{item.senderName}</h3>
+              </>
+            ) : (
+              <>
+                <div className="uniImageDiv">
+                  <img
+                    className="unitUserImg"
+                    style={{
+                      width: "60px !important",
+                      height: "60px important",
+                      borderRadious: "50% !important",
+                    }}
+                    src={item.senderPhotoURL}
+                    alt="User Pic"
+                  />
+                </div>
+                <div style={{ width: "80%" }}>
+                  <div className="groupNametitle">
+                    <div>
+                      <h3 className="h3Group">{item.senderName}</h3>
 
-                    <h5 style={{ fontSize: "10px" }} className="h5Note">
-                      {item.date}
-                    </h5>
-                  </div>
+                      <h5 style={{ fontSize: "10px" }} className="h5Note">
+                        {item.date}
+                      </h5>
+                    </div>
 
-                  <div className="buttonFlex">
-                    <ToastContainer
-                      position="top-center"
-                      autoClose={2000}
-                      hideProgressBar={false}
-                      newestOnTop={false}
-                      closeOnClick
-                      rtl={false}
-                      pauseOnFocusLoss
-                      draggable
-                      pauseOnHover
-                      theme="light"
-                    />
-                    <div className="rejectAcc">
-                      <p onClick={() => unFriend(item)} className="butGroup">
-                        Unfriend
-                      </p>
-                      <p onClick={() => buttBlock(item)} className="butGroup">
-                        Block
-                      </p>
+                    <div className="buttonFlex">
+                      <ToastContainer
+                        position="top-center"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                      />
+                      <div className="rejectAcc">
+                        <p onClick={() => unFriend(item)} className="butGroup">
+                          Unfriend
+                        </p>
+                        <p onClick={() => buttBlock(item)} className="butGroup">
+                          Block
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
-          )}
-        </div>
-      ))}
+              </>
+            )}
+          </div>
+        ))
+      ) : (
+        <Alert severity="info">
+          <AlertTitle>Info</AlertTitle>
+          No Friend 
+        </Alert>
+      )}
     </>
   );
 };
