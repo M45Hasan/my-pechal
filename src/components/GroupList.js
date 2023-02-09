@@ -49,7 +49,7 @@ const GroupList = () => {
       setOpen(false);
     });
   };
-  let [show, setShow] = useState(true);
+  let [show, setShow] = useState(false);
   useEffect(() => {
     const useRef = ref(db, "group");
     onValue(useRef, (snapshot) => {
@@ -67,22 +67,21 @@ const GroupList = () => {
   }, []);
   let groupJoin = (item) => {
     console.log("joinButt", item);
-   
+    setShow(!show);
+
     set(
       push(ref(db, "join"), {
         ...item,
-        groupId:item.gid,
+        groupId: item.gid,
         memberId: data.userStoreData.userInfo.uid,
         memberName: data.userStoreData.userInfo.displayName,
         memberURL: data.userStoreData.userInfo.photoURL,
       })
     );
-
-    setShow(!show);
   };
 
   let groupLeave = (item) => {
-    remove(ref(db, "join/"));
+    remove(ref(db, "join/" ));
 
     setShow(!show);
   };
@@ -146,7 +145,7 @@ const GroupList = () => {
                     theme="light"
                   />
                   <div className="rejectAcc">
-                    {show ? (
+                    {!show ? (
                       <p
                         onClick={() => groupJoin(item)}
                         style={{ backgroundColor: "#5f35f5" }}
@@ -175,6 +174,7 @@ const GroupList = () => {
           Create One
         </Alert>
       )}
+
       <div>
         <Modal
           open={open}
