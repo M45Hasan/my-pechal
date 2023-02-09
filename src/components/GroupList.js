@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { ToastContainer } from "react-toastify";
-import { getDatabase, ref, onValue, set, push } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  set,
+  push,
+  remove,
+} from "firebase/database";
 import { useSelector } from "react-redux";
 import { Modal, Typography, Button, Box, TextField } from "@mui/material";
 
@@ -42,7 +49,7 @@ const GroupList = () => {
       setOpen(false);
     });
   };
-
+  let [show, setShow] = useState(true);
   useEffect(() => {
     const useRef = ref(db, "group");
     onValue(useRef, (snapshot) => {
@@ -60,12 +67,24 @@ const GroupList = () => {
   }, []);
   let groupJoin = (item) => {
     console.log("joinButt", item);
-    set(ref(db, "join/" + item.gid), {
-      adminId: item.adminId,
-      memberId: data.userStoreData.userInfo.uid,
-      memberName: data.userStoreData.userInfo.displayName,
-      memberURL: data.userStoreData.userInfo.photoURL,
-    });
+   
+    set(
+      push(ref(db, "join"), {
+        ...item,
+        groupId:item.gid,
+        memberId: data.userStoreData.userInfo.uid,
+        memberName: data.userStoreData.userInfo.displayName,
+        memberURL: data.userStoreData.userInfo.photoURL,
+      })
+    );
+
+    setShow(!show);
+  };
+
+  let groupLeave = (item) => {
+    remove(ref(db, "join/"));
+
+    setShow(!show);
   };
 
   return (
@@ -79,7 +98,7 @@ const GroupList = () => {
           <div className="rejectAcc">
             <p
               onClick={handleOpen}
-              style={{ backgroundColor: "red" }}
+              style={{ backgroundColor: "#5f35f5" }}
               className="butGroup"
             >
               Create Group
@@ -127,13 +146,23 @@ const GroupList = () => {
                     theme="light"
                   />
                   <div className="rejectAcc">
-                    <p
-                      onClick={() => groupJoin(item)}
-                      style={{ backgroundColor: "red" }}
-                      className="butGroup"
-                    >
-                      Join
-                    </p>
+                    {show ? (
+                      <p
+                        onClick={() => groupJoin(item)}
+                        style={{ backgroundColor: "#5f35f5" }}
+                        className="butGroup"
+                      >
+                        Join
+                      </p>
+                    ) : (
+                      <p
+                        onClick={() => groupLeave(item)}
+                        style={{ backgroundColor: "red" }}
+                        className="butGroup"
+                      >
+                        Leave
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

@@ -60,8 +60,10 @@ const MyGroup = () => {
   }, []);
 
   let buttdel = (item) => {
-    console.log(item.gid);
-    remove(ref(db, "group/" + item.gid));
+    console.log(item)
+    remove(ref(db, "group/" + item.gid)).then(() => {
+      remove(ref(db, "join" + item));
+    });
     console.log("group delete");
   };
 
@@ -71,20 +73,16 @@ const MyGroup = () => {
 
   let [member, setMemb] = useState([]);
 
-  const handleOpen = (item) => {
-    console.log("myMember:", item);
+  const handleOpen = (id) => {
+    console.log("Group:", id);
     setOpen(true);
     let useRef = ref(db, "join");
     onValue(useRef, (snapshot) => {
       let arr = [];
       snapshot.forEach((it) => {
-        if (
-          item.gid == it.key &&
-          item.adminId == data.userStoreData.userInfo.uid
-        ) {
+        if (it.val().groupId==id) {
           arr.push({
-            ...it.val(),
-            gid: it.key,
+            ...it.val(),did:it.key
           });
         }
       });
@@ -142,7 +140,7 @@ const MyGroup = () => {
                     </p>
 
                     <p
-                      onClick={() => handleOpen(item)}
+                      onClick={() => handleOpen(item.gid)}
                       className="butGroup"
                       style={{ fontSize: "10px" }}
                     >
