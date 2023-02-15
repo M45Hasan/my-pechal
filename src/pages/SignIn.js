@@ -16,13 +16,14 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
+  signOut,
 } from "firebase/auth";
 
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 import { activeUser } from "../slices/UserSlice";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 /***modal ImportStart */
 import Box from "@mui/material/Box";
@@ -119,23 +120,20 @@ const SignIn = () => {
           navigate("/home");
           localStorage.setItem("userInfo", JSON.stringify(userCredential.user));
           dispatch(activeUser(userCredential.user));
-          console.log("dispatch",userCredential.user.photoURL)
-          // if (userCredential.user.emailVerified === true) {   //** */Email Verify
-          //   navigate("/home")
-          // }
-          // else{
-          //   setError({...errorShow,other:"Please Verify Your Email"})
-          //   setTimeout(()=>{
-          //     signOut(auth).then(() => {
-          //       //************************************************** */ Sign-out successful.
-          //       console.log("signOut")
-          //       navigate("/")
-          //     })
-          //   },4000)
-
-          // }
-
-          // ...
+          console.log("dispatch", userCredential.user.photoURL);
+          if (userCredential.user.emailVerified) {
+            //** */Email Verify
+            navigate("/home");
+          } else {
+            setError({ ...errorShow, other: "Please Verify Your Email" });
+            setTimeout(() => {
+              signOut(auth).then(() => {
+                //************************************************** */ Sign-out successful.
+                console.log("signOut");
+                navigate("/");
+              });
+            }, 4000);
+          }
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -176,7 +174,7 @@ const SignIn = () => {
         const errorCode = error.code;
 
         console.log("Google LoginError:", errorCode);
-        
+
         // ..
       });
   };

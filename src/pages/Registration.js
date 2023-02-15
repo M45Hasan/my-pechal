@@ -85,72 +85,72 @@ const Registration = () => {
 
     //**************Password Varification******Start*************************************/
 
-    // if (name === "password") {
-    //   let cap = /(?=.*?[A-Z])/;
-    //   let lower = /(?=.*?[a-z])/;
-    //   let digit = /(?=.*?[0-9])/;
-    //   let spchar = /(?=.*?[#?!@$%^&*-])/;
-    //   let minlen = /.{6,}/;
-    //   let progresUnit=100/6
-    //   console.log(progresUnit)
-    //   //*********************ProgressBar***********Start****** */
+    if (name === "password") {
+      let cap = /(?=.*?[A-Z])/;
+      let lower = /(?=.*?[a-z])/;
+      let digit = /(?=.*?[0-9])/;
+      let spchar = /(?=.*?[#?!@$%^&*-])/;
+      let minlen = /.{6,}/;
+      let progresUnit = 100 / 6;
+      console.log(progresUnit);
+      //*********************ProgressBar***********Start****** */
 
-    //   if (value.length == 0) {
-    //     setProgres(0);
-    //   }
+      // if (value.length == 0) {
+      //   setProgres(0);
+      // }
 
-    //   if (value.length == 1) {
-    //     setProgres(progresUnit);
-    //   }
+      // if (value.length == 1) {
+      //   setProgres(progresUnit);
+      // }
 
-    //   if (value.length == 2) {
-    //     setProgres(progresUnit*2);
-    //   }
-    //   if (value.length == 3) {
-    //     setProgres(progresUnit*3);
-    //   }
-    //   if (value.length == 4) {
-    //     setProgres(progresUnit*4);
-    //   }
-    //   if (value.length == 5) {
-    //     setProgres(progresUnit*5);
-    //   }
-    //   if (value.length == 6) {
-    //     setProgres(progresUnit*6);
-    //   }
-    //   //*********************ProgressBar***********Start****** */
+      // if (value.length == 2) {
+      //   setProgres(progresUnit*2);
+      // }
+      // if (value.length == 3) {
+      //   setProgres(progresUnit*3);
+      // }
+      // if (value.length == 4) {
+      //   setProgres(progresUnit*4);
+      // }
+      // if (value.length == 5) {
+      //   setProgres(progresUnit*5);
+      // }
+      // if (value.length == 6) {
+      //   setProgres(progresUnit*6);
+      // }
+      //*********************ProgressBar***********end****** */
 
-    //   if (!cap.test(value)) {
-    //     setError({ ...errorShow, password: "One Capital letter required" });
-    //     return;
-    //   }
+      if (!cap.test(value)) {
+        setError({ ...errorShow, password: "One Capital letter required" });
+        return;
+      }
 
-    //   if (!lower.test(value)) {
-    //     setError({ ...errorShow, password: "One Lower letter required" });
-    //     return;
-    //   }
+      if (!lower.test(value)) {
+        setError({ ...errorShow, password: "One Lower letter required" });
+        return;
+      }
 
-    //   if (!digit.test(value)) {
-    //     setError({ ...errorShow, password: "At least one digit required" });
-    //     return;
-    //   }
+      if (!digit.test(value)) {
+        setError({ ...errorShow, password: "At least one digit required" });
+        return;
+      }
 
-    //   if (!spchar.test(value)) {
-    //     setError({
-    //       ...errorShow,
-    //       password: "At least one Special Char required",
-    //     });
-    //     return;
-    //   }
+      if (!spchar.test(value)) {
+        setError({
+          ...errorShow,
+          password: "At least one Special Char required",
+        });
+        return;
+      }
 
-    //   if (!minlen.test(value)) {
-    //     setError({ ...errorShow, password: "At least 6 unit required" });
-    //     return;
-    //   } else {
-    //     setProgres(100);
-    //   }
-    //   console.log(progresShow);
-    // }
+      if (!minlen.test(value)) {
+        setError({ ...errorShow, password: "At least 6 unit required" });
+        return;
+      } else {
+        setProgres(100);
+      }
+      console.log(progresShow);
+    }
     //**************Password Varification******End */
     setFormData({ ...formData, [name]: value });
     setError({ ...errorShow, [name]: "" });
